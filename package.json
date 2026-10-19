@@ -9,6 +9,7 @@
   "license": "MIT",
   "keywords": [],
   "scripts": {
+    "dev": "tsx src/index.ts --watch",
     "lint": "eslint --cache .",
     "lint:fix": "eslint --fix",
     "prepublishOnly": "pnpm build",
@@ -22,12 +23,13 @@
     "jiti": "^2.7.0",
     "lint-staged": "^17.6.0",
     "simple-git-hooks": "^2.14.0",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "verify-git-commit": "^0.0.1",
     "zod": "^4.6.7"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx nano-staged",
+    "pre-commit": "npx lint-staged",
     "commit-msg": "npx verify-git-commit"
   },
   "lint-staged": {
