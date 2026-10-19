@@ -1,0 +1,9 @@
+{
+  "$schema": "../schema.json",
+  "name": "starter cli",
+  "description": "Starter template for Node.js CLI",
+  "defaultDir": "starter-cli",
+  "url": "https://github.com/lonewolfyx-template/starter-cli",
+  "tar": "https://codeload.github.com/lonewolfyx-template/starter-cli/tar.gz/refs/heads/main",
+  "repo": "lonewolfyx-template/starter-cli"
+}

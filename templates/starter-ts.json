@@ -1,0 +1,9 @@
+{
+  "$schema": "../schema.json",
+  "name": "starter ts",
+  "description": "Starter template for TypeScript library",
+  "defaultDir": "starter-ts",
+  "url": "https://github.com/lonewolfyx-template/starter-ts",
+  "tar": "https://codeload.github.com/lonewolfyx-template/starter-ts/tar.gz/refs/heads/main",
+  "repo": "lonewolfyx-template/starter-ts"
+}
