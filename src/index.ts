@@ -2,7 +2,7 @@ import { writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { z } from 'zod'
 
-const registrySchema = z.looseObject({
+export const registrySchema = z.looseObject({
   $schema: z.string().min(1).optional().describe('供编辑器使用的 JSON Schema 地址，支持相对路径'),
   name: z.string().describe('模板名称'),
   description: z.string().describe('模板描述'),
