@@ -9,7 +9,7 @@
   "license": "MIT",
   "keywords": [],
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch src/schema.ts",
     "lint": "eslint --cache .",
     "lint:fix": "eslint --fix",
     "prepublishOnly": "pnpm build",
