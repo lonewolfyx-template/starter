@@ -11,6 +11,9 @@
       ]
     },
     "resolveJsonModule": true,
+    "types": [
+      "node"
+    ],
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "declarationMap": false
