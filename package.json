@@ -1,0 +1,36 @@
+{
+  "name": "starter",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.24.0",
+  "description": "",
+  "author": "lonewolfyx <https://github.com/lonewolfyx>",
+  "license": "MIT",
+  "keywords": [],
+  "scripts": {
+    "lint": "eslint --cache .",
+    "lint:fix": "eslint --fix",
+    "prepublishOnly": "pnpm build",
+    "prepare": "simple-git-hooks"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.5.1",
+    "@lonewolfyx/tsconfig": "^0.0.6",
+    "@types/node": "^26.6.5",
+    "eslint": "^10.13.0",
+    "jiti": "^2.7.0",
+    "lint-staged": "^17.6.0",
+    "simple-git-hooks": "^2.14.0",
+    "typescript": "^6.0.3",
+    "verify-git-commit": "^0.0.1",
+    "zod": "^4.6.7"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx nano-staged",
+    "commit-msg": "npx verify-git-commit"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
