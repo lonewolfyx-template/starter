@@ -4,7 +4,7 @@
 
 基于 Zod 的 JSON Schema 生成器，用于定义 [giget](https://github.com/unjs/giget) 模板注册文件的结构。
 
-注册文件的格式定义在 [`src/index.ts`](./src/index.ts) 中，包含模板元数据及 giget 下载模板所需的地址。每个模板对应一份 `templates/<模板标识>.json` 文件，例如，`starter` 对应 `templates/starter.json`。
+注册文件的格式定义在 [`src/index.ts`](./src/index.ts) 中，包含模板元数据及 giget 下载模板所需的地址。每个模板对应一份 `templates/<模板标识>.json` 文件，例如，`starter-ts` 对应 `templates/starter-ts.json`。
 
 ## 生成 JSON Schema
 
@@ -55,18 +55,17 @@ pnpm dev
 
 ## 注册模板
 
-按以下结构创建或编辑 `templates/<模板标识>.json`。示例描述的是 `lonewolfyx-template/starter` 仓库的 `main` 分支：
+按以下结构创建或编辑 `templates/<模板标识>.json`。示例描述的是 `lonewolfyx-template/starter-ts` 仓库的 `main` 分支：
 
 ```json
 {
   "$schema": "../schema.json",
-  "name": "lonewolfyx-starter",
-  "description": "A TypeScript starter template.",
-  "tar": "https://api.github.com/repos/lonewolfyx-template/starter/tarball/main",
-  "url": "https://github.com/lonewolfyx-template/starter",
-  "version": "main",
-  "repo": "lonewolfyx-template/starter",
-  "defaultDir": "my-project"
+  "name": "starter ts",
+  "description": "Starter template for TypeScript library",
+  "tar": "https://codeload.github.com/lonewolfyx-template/starter-ts/tar.gz/refs/heads/main",
+  "url": "https://github.com/lonewolfyx-template/starter-ts",
+  "repo": "lonewolfyx-template/starter-ts",
+  "defaultDir": "starter-ts"
 }
 ```
 
@@ -74,21 +73,50 @@ pnpm dev
 
 ## 使用注册表
 
-将注册文件发布到可访问的 HTTP(S) 地址后，giget 会按 `<registry>/<模板标识>.json` 获取模板定义。以下 GitHub Raw 地址需要先将本地的 `schema.json` 和 `templates/starter.json` 提交并推送到 `main` 才会生效。
+将注册文件发布到可访问的 HTTP(S) 地址后，giget 会按 `<registry>/<模板标识>.json` 获取模板定义。以下 GitHub Raw 地址需要先将本地的 `schema.json` 和模板注册文件提交并推送到 `main` 才会生效。
+
+### 可用模板
+
+[`templates` 目录清单](https://api.github.com/repos/lonewolfyx-template/starter/contents/templates?ref=main) 当前包含以下模板：
+
+| 模板标识 | 说明 | 默认目录 |
+| --- | --- | --- |
+| `starter-ts` | TypeScript 库起始模板 | `starter-ts` |
+| `starter-cli` | Node.js CLI 起始模板 | `starter-cli` |
+
+文件名去掉 `.json` 后即为传给 giget 的模板标识。上方的 GitHub Contents API 链接是 `main` 分支当前已发布模板的清单来源。
+
+### 创建项目
 
 对于私有仓库，需要在环境变量 `GIGET_AUTH` 中设置具有仓库读取权限的 GitHub token。使用 Fine-grained token 时，需要 Contents 和 Metadata 的读取权限。giget 会将它用于获取注册文件和下载压缩包；不要将 token 写入注册 JSON。
 
+使用默认目录 `starter-ts` 创建 TypeScript 库项目：
+
 ```bash
 GIGET_REGISTRY=https://raw.githubusercontent.com/lonewolfyx-template/starter/main/templates \
-  pnpm dlx giget starter my-project
+  pnpm dlx giget starter-ts
 ```
 
-`GIGET_REGISTRY` 填写目录地址，不带末尾 `/`。也可以直接使用注册文件 URL：
+传入目标目录可以覆盖模板的 `defaultDir`：
 
 ```bash
-pnpm dlx giget https://raw.githubusercontent.com/lonewolfyx-template/starter/main/templates/starter.json my-project
+GIGET_REGISTRY=https://raw.githubusercontent.com/lonewolfyx-template/starter/main/templates \
+  pnpm dlx giget starter-ts my-typescript-library
 ```
 
-省略 `my-project` 时使用 `defaultDir`。添加其他模板时，复制示例为 `templates/<新的模板标识>.json` 并修改相应字段即可。
+创建 Node.js CLI 项目：
+
+```bash
+GIGET_REGISTRY=https://raw.githubusercontent.com/lonewolfyx-template/starter/main/templates \
+  pnpm dlx giget starter-cli my-cli
+```
+
+`GIGET_REGISTRY` 填写目录地址，不带末尾 `/`。也可以直接使用注册文件 URL，无需设置环境变量：
+
+```bash
+pnpm dlx giget https://raw.githubusercontent.com/lonewolfyx-template/starter/main/templates/starter-cli.json my-cli
+```
+
+省略目标目录参数时使用 `defaultDir`。添加其他模板时，复制示例为 `templates/<新的模板标识>.json` 并修改相应字段即可。
 
 参考：[官方注册表说明](https://github.com/unjs/giget#template-registry)、[模板类型](https://github.com/unjs/giget/blob/main/src/types.ts)、[私有仓库认证](https://github.com/unjs/giget#providing-token-for-private-repositories)。
